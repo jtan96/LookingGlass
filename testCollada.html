@@ -14,7 +14,7 @@
 		</div>
 
 		<script src="./js/three.js"></script>
-
+		<script src="js/holoplay.js"></script>
 		<script src="js/loaders/ColladaLoader.js"></script>
 		<script src="js/WebGL.js"></script>
 		<script src="js/libs/stats.min.js"></script>
@@ -25,6 +25,8 @@
 			}
 			var container, stats, clock;
 			var camera, scene, renderer, elf;
+			var holoplay;
+
 			init();
 			animate();
 			function init() {
@@ -54,6 +56,7 @@
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				container.appendChild( renderer.domElement );
+				holoplay = new HoloPlay(scene, camera, renderer);
 				//
 				stats = new Stats();
 				container.appendChild( stats.dom );
@@ -67,7 +70,7 @@
 			}
 			function animate() {
 				requestAnimationFrame( animate );
-				render();
+ 				render();
 				stats.update();
 			}
 			function render() {
@@ -75,7 +78,8 @@
 				if ( elf !== undefined ) {
 					elf.rotation.z += delta * 0.5;
 				}
-				renderer.render( scene, camera );
+				holoplay.render();
+				//renderer.render( scene, camera );
 			}
 		</script>
 	</body>
